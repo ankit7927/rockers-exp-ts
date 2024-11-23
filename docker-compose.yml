@@ -1,0 +1,62 @@
+name: rockers
+
+services:
+  rockers-server:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: rockers-server
+    container_name: rockers-server
+    env_file:
+      - .env
+    ports:
+      - ${SERVER_PORT}:${SERVER_PORT}
+    networks:
+      - rockers-network
+    command: [ "pm2-runtime", "start", "dist/index.js" ]
+
+  rockers-db:
+    image: mongo
+    container_name: rockers-database
+    ports:
+      - ${DB_PORT}:${DB_PORT}
+    env_file:
+      - .env
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=$MONGO_USER
+      - MONGO_INITDB_ROOT_PASSWORD=$MONGO_PASS
+    networks:
+      - rockers-network
+    volumes:
+      - rockers-data:/data/db
+      - rockers-db-config:/data/configdb
+    healthcheck:
+      test: [ "CMD", "mongosh", "--eval", "db.adminCommand('ping')" ]
+      interval: 5s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+
+  rockers-cache:
+    image: redis
+    container_name: rockers-cache
+    ports:
+      - ${CACHE_PORT}:${CACHE_PORT}
+    networks:
+      - rockers-network
+    volumes:
+      - rockers-cache:/data
+    command: [ "redis-server" ]
+
+networks:
+  rockers-network:
+    name: "rockers-network"
+    driver: bridge
+
+volumes:
+  rockers-data:
+    name: "mongo-data"
+  rockers-db-config:
+    name: "mongo-config"
+  rockers-cache:
+    name: "redis-cache"

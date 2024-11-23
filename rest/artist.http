@@ -1,0 +1,15 @@
+### get all artists
+GET http://localhost:8000/api/artists/get-all
+
+### update artist
+PUT http://localhost:8000/api/artists/edit/673df1bc054c9c73605dfd5e
+Content-Type: application/json
+
+{
+  "name": "new artists",
+  "description": "test artist description",
+  "imageUrl": "testimage.jpg"
+}
+
+### delete artist
+DELETE http://localhost:8000/api/artists/edit/673df1bc054c9c73605dfd5e

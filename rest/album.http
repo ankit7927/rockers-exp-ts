@@ -1,0 +1,15 @@
+### GET request to example server
+GET http://localhost:8000/api/albums/get-all
+
+### update album
+PUT http://localhost:8000/api/albums/edit/673df1bc054c9c73605dfd5c
+Content-Type: application/json
+
+{
+  "name": "new album",
+  "description": "test album description",
+  "imageUrl": "testimage.jpg"
+}
+
+### delete album
+DELETE http://localhost:8000/api/albums/edit/673df1bc054c9c73605dfd5c

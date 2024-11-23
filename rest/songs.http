@@ -1,0 +1,81 @@
+### get songs
+GET http://localhost:8000/api/songs/get-all
+
+
+
+### create song
+POST http://localhost:8000/api/songs/create-song
+Content-Type: application/json
+
+{
+  "title": "audio",
+  "description": "test description",
+  "album": "test",
+  "artists": [
+    "test1",
+    "temp1"
+  ],
+  "lyrics": [
+    "line1",
+    "line2",
+    "line3"
+  ]
+}
+
+
+### post song with file and image
+POST http://localhost:8000/api/songs/create-song
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="audio"; filename="01 Tera Hoke Rahoon (Arijit Singh) 320Kbps.mp3"
+
+< D:\mp3s\01 Tera Hoke Rahoon (Arijit Singh) 320Kbps.mp3
+--WebAppBoundary
+Content-Disposition: form-data; name="image"; filename="961313.png"
+
+< D:\wallpapers\itachi\961313.png
+--WebAppBoundary
+Content-Disposition: form-data; name="title"
+Content-Type: text/plain
+
+test song
+--WebAppBoundary
+Content-Disposition: form-data; name="description"
+Content-Type: text/plain
+
+test song description
+--WebAppBoundary
+Content-Disposition: form-data; name="album"
+Content-Type: text/plain
+
+new album
+--WebAppBoundary
+Content-Disposition: form-data; name="artists"
+Content-Type: text/plain
+
+test song description
+--WebAppBoundary
+Content-Disposition: form-data; name="lyrics"
+Content-Type:
+
+test song description
+--WebAppBoundary
+
+
+
+
+
+
+
+
+
+
+
+### get song by id
+GET http://localhost:8000/api/songs/get-song/673df1bc49b2f81f42b65c2b
+
+
+### get album song
+GET http://localhost:8000/api/songs/get-album-songs/673df1bc054c9c73605dfd5c
+
